@@ -27,6 +27,7 @@ function adminer_object() {
 	include_once( __DIR__ . '/../plugins/dump-date.php');
 	include_once( __DIR__ . '/../plugins/pretty-json-column.php');
 	include_once( __DIR__ . '/../plugins/json-column.php');
+	include_once( __DIR__ . '/../plugins/login-ssl.php');
 	return new Adminer\Plugins(array(
 		new SqliteConnectionWithoutCredentials(),
 		new AdminerTablesFilter(),
@@ -35,6 +36,10 @@ function adminer_object() {
 		new AdminerDumpPhp(),
 		new AdminerDumpDate(),
 		new AdminerJsonColumn(),
+		new AdminerLoginSsl([
+			'ca' => '/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem',
+			"verify" => false,
+		]),
 		new AdminerPrettyJsonColumn()
 	));
 }
